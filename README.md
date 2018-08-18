@@ -2,6 +2,8 @@
 
 基于 Vue.js + XenInfo，带动效的 iOS 桌面时间 + 歌词显示插件
 
+![](https://ws4.sinaimg.cn/large/006tNbRwgy1fue061fqncj31kw0xqtla.jpg)
+
 本插件主要为自用，需要前端开发基础，不适合伸手党。
 
 ## 开发
