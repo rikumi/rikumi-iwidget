@@ -1,0 +1,57 @@
+{
+  "name": "rikumi-iwidget",
+  "scripts": {
+    "dev": "parcel Widget.html --port 8080 --no-source-maps --public-url .",
+    "build": "rm -rf dist; parcel build Widget.html --no-source-maps --public-url .; scp dist/* ios:/User/Library/iWidgets/rikumi-iwidget/; ssh ios 'killall SpringBoard'"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "date-events": "^1.0.1",
+    "events": "^3.0.0",
+    "moment": "^2.22.2",
+    "vue": "^2.4.4",
+    "vue-component-persist": "^1.1.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^2.1.0",
+    "autoprefixer": "^9.1.1",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "normalize.css": "^7.0.0",
+    "parcel": "^1.9.7",
+    "pug": "^2.0.3",
+    "stylus": "^0.54.5",
+    "vue-hot-reload-api": "^2.3.0",
+    "vue-template-compiler": "^2.4.4"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-runtime",
+      [
+        "module-resolver",
+        {
+          "root": "./",
+          "alias": {
+            "@": "./src",
+            "static": "./static",
+            "vue": "vue/dist/vue"
+          }
+        }
+      ]
+    ]
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": true
+    }
+  },
+  "browserslist": [
+    "ios >= 8"
+  ]
+}
