@@ -6,7 +6,7 @@
         img.cover(:src='music.cover')
     .container
       transition-group.date-time(name='slide')
-        .time(:key='time') {{ time }}
+        .time(:key='time' ref='time') {{ time }}
         .date(:key='date') {{ date }}
         .spacing(key='spacing')
         a(key='playpause' href='xeninfo:playpause' v-if='music.title != null')
@@ -15,7 +15,7 @@
         a(key='next' href='xeninfo:nexttrack' v-if='music.title != null')
           img.next(src='./next.svg')
       transition-group.lyric-container(name='slide' :style='{ height: lyricHeight + "px" }')
-        .lyric(v-if='lyricLine' :key='lyricLine' ref='lyric') {{ lyricLine }}
+        .lyric(v-if='lyricLine' :key='lyricLine' ref='lyric' :style='{ minWidth: timeWidth + "px" }') {{ lyricLine }}
 </template>
 
 <script>
@@ -32,7 +32,8 @@
         music: {},
         date: '',
         time: '',
-        lyricHeight: 0
+        lyricHeight: 0,
+        timeWidth: 0
       }
     },
     created() {
@@ -46,6 +47,9 @@
       updateTime() {
         this.time = moment().format(window.timeFormat)
         this.date = moment().format(window.dateFormat)
+        setTimeout(() => {
+          this.timeWidth = this.$refs.time ? this.$refs.time.clientWidth : 0
+        }, 0)
       }
     },
     computed: {
