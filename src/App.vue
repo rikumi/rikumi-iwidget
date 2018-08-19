@@ -10,10 +10,10 @@
         .date(:key='date') {{ date }}
         .spacing(key='spacing')
         a(key='playpause' href='xeninfo:playpause' v-if='music.title != null')
-          img.play-pause(v-if='music.isplaying' src='./pause.svg' @click='music.isplaying = false')
-          img.play-pause(v-else src='./play.svg' @click='music.isplaying = true')
+          img.play-pause(v-if='music.isplaying' src='./pause.svg' @click='music.isplaying = 0; hasPendingPauseRequest = true')
+          img.play-pause(v-else src='./play.svg' @click='music.isplaying = 1; hasPendingPauseRequest = false')
         a(key='next' href='xeninfo:nexttrack' v-if='music.title != null')
-          img.next(src='./next.svg')
+          img.next(src='./next.svg' @click='hasPendingPauseRequest = false')
       transition-group.lyric-container(name='slide' :style='{ height: lyricHeight + "px" }')
         .lyric(v-if='lyricLine' :key='lyricLine' ref='lyric' :style='{ minWidth: timeWidth + "px" }') {{ lyricLine }}
 </template>
@@ -33,11 +33,19 @@
         date: '',
         time: '',
         lyricHeight: 0,
-        timeWidth: 0
+        timeWidth: 0,
+        hasPendingPauseRequest: false
       }
     },
     created() {
       xen.on('music', (music) => {
+        if (this.hasPendingPauseRequest) {
+          if (!music.isplaying) {
+            this.hasPendingPauseRequest = false
+          } else {
+            music.isplaying = 0
+          }
+        }
         this.music = music
       })
       date.on('*:*', () => this.updateTime())
