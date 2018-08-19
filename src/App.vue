@@ -223,4 +223,7 @@
         padding-top 10px
         border-top 1px solid #fff
         transition .5s
+        max-width 100%
+        word-wrap break-word
+        word-break keep-all
 </style>
