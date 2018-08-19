@@ -1,8 +1,8 @@
 # rikumi-iwidget
 
-基于 Vue.js + XenInfo，带动效的 iOS 桌面时间 + 歌词显示插件
+基于 Vue.js + XenInfo，带动效的 iOS 桌面时间 + 歌词显示插件，需要越狱环境并安装 XenHTML 和 XenInfo。
 
-Based on Vue.js & XenInfo, an iOS widget with date/time and music player.
+Based on Vue.js & XenInfo, an iOS widget with date/time and music player. You need to have both XenHTML and XenInfo installed on a jailbroken iPhone.
 
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fueu0xubp3j31kw0pb4i0.jpg)
 
