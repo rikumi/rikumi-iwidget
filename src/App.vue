@@ -68,8 +68,13 @@
     transition .5s
 
   .slide-enter, .slide-leave-to
-    transform translateX(-20px) !important
     opacity 0 !important
+
+  .slide-enter
+    transform translateX(30px)
+
+  .slide-leave-to
+    transform translateX(-30px)
 
   .slide-leave-active
     position absolute

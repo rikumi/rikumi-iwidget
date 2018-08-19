@@ -11,8 +11,7 @@
     "date-events": "^1.0.1",
     "events": "^3.0.0",
     "moment": "^2.22.2",
-    "vue": "^2.4.4",
-    "vue-component-persist": "^1.1.4"
+    "vue": "^2.4.4"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^2.1.0",
