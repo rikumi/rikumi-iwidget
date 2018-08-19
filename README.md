@@ -17,12 +17,12 @@ Download latest .zip package from [release](https://github.com/rikumi/rikumi-iwi
 - 专辑封面旋转动画 Album cover rotation animation
 - 播放暂停按钮（仅正在播放或可以播放时显示） Buttons for play/pause and next track (they are visible only when music is playing or ready to play)
 - 音乐信息显示（开启选项后可以支持网易云歌词显示） Music info display (artist - title, or lyrics for Netease CloudMusic, if enabled in widget options)
+- 日期/时间滑动淡入淡出动画 Slide and fade when time or date changes
 - 切歌淡入淡出动画 Fade in/out animations when track changes
 - 音乐信息（歌词）滑动淡入淡出动画 Slide and fade animations when music info (lyrics) changes
 - 播放/暂停时专辑封面滑动淡入淡出动画 Slide and fade when play state changes
 - 小工具选项支持 Widget options support:
   - 支持修改日期时间格式 Support changing date/time formats
-  - 支持修改语言区域（英文 en，中文 zh-CN，主要影响星期显示） Support changing locale (mainly for weekday translations)
   - 支持开启网易云模式，将专辑解释为歌词（默认关闭） Support explaining album name as lyrics (for CN users with Netease CloudMusic)
     
 ## 已知问题 Known bugs
