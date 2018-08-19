@@ -5,17 +5,17 @@
       .cover-wrapper(:key='music.cover' :class='{ hidden: !music.isplaying }')
         img.cover(:src='music.cover')
     .container
-      .date-time
-        .time {{ time }}
-        .date {{ date }}
-        .spacing
-        a(href='xeninfo:playpause' v-if='music.title != null')
+      transition-group.date-time(name='slide')
+        .time(:key='time') {{ time }}
+        .date(:key='date') {{ date }}
+        .spacing(key='spacing')
+        a(key='playpause' href='xeninfo:playpause' v-if='music.title != null')
           img.play-pause(v-if='music.isplaying' src='./pause.svg' @click='music.isplaying = false')
           img.play-pause(v-else src='./play.svg' @click='music.isplaying = true')
-        a(href='xeninfo:nexttrack' v-if='music.title != null')
+        a(key='next' href='xeninfo:nexttrack' v-if='music.title != null')
           img.next(src='./next.svg')
-      transition-group(name='slide')
-        .lyric(v-if='lyricLine' :key='lyricLine') {{ lyricLine }}
+      transition-group.lyric-container(name='slide' :style='{ height: lyricHeight + "px" }')
+        .lyric(v-if='lyricLine' :key='lyricLine' ref='lyric') {{ lyricLine }}
 </template>
 
 <script>
@@ -31,7 +31,8 @@
       return {
         music: {},
         date: '',
-        time: ''
+        time: '',
+        lyricHeight: 0
       }
     },
     created() {
@@ -54,7 +55,14 @@
             window.albumAsLyrics && !this.music.artist ? this.music.album :
             [this.music.artist, this.music.title].filter(k => k).join(' - ')
           ) || ''
-        ).replace(/\(.*?\)|（.*?）|【.*?】/g, '')
+        ).replace(/\(.*?\)|（.*?）|【.*?】/g, '').replace(/\s+/g, ' ').trim()
+      }
+    },
+    watch: {
+      lyricLine() {
+        setTimeout(() => {
+          this.lyricHeight = this.$refs.lyric ? this.$refs.lyric.clientHeight + 10 : 0
+        }, 0)
       }
     }
   }
@@ -199,9 +207,16 @@
         margin-left 15px
         margin-bottom -2px
 
-    .lyric
-      margin-top 10px
-      padding-top 10px
-      border-top 1px solid #fff
+    .lyric-container
+      display block
+      width 100%
       transition .5s
+      position relative
+
+      .lyric
+        display inline-block
+        margin-top 10px
+        padding-top 10px
+        border-top 1px solid #fff
+        transition .5s
 </style>
