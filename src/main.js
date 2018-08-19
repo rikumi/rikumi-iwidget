@@ -6,7 +6,7 @@ Vue.config.productionTip = false
 Vue.use(Persist)
 
 new Vue({
-    el: '#app',
-    template: '<App/>',
-    components: { App }
+  el: '#app',
+  template: '<App/>',
+  components: { App }
 })

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>label</key>
+		<string>Date format</string>
+		<key>name</key>
+		<string>dateFormat</string>
+		<key>default</key>
+		<string>ddd M/D/YYYY</string>
+		<key>options</key>
+		<dict>
+			<key>ddd M/D/YYYY</key>
+			<string>ddd M/D/YYYY</string>
+			<key>ddd D/M/YYYY</key>
+			<string>ddd D/M/YYYY</string>
+			<key>YYYY/M/D ddd</key>
+			<string>YYYY/M/D ddd</string>
+		</dict>
+		<key>type</key>
+		<string>select</string>
+	</dict>
+	<dict>
+		<key>label</key>
+		<string>Time format</string>
+		<key>name</key>
+		<string>timeFormat</string>
+		<key>default</key>
+		<string>HH:mm</string>
+		<key>options</key>
+		<dict>
+			<key>hh:mm a</key>
+			<string>hh:mm a</string>
+			<key>h:mm a</key>
+			<string>h:mm a</string>
+			<key>HH:mm</key>
+			<string>HH:mm</string>
+			<key>H:mm</key>
+			<string>H:mm</string>
+		</dict>
+		<key>type</key>
+		<string>select</string>
+	</dict>
+	<dict>
+		<key>label</key>
+		<string>Locale</string>
+		<key>name</key>
+		<string>locale</string>
+		<key>default</key>
+		<string>en</string>
+		<key>type</key>
+		<string>input</string>
+	</dict>
+	<dict>
+		<key>label</key>
+		<string>(For Chinese users) use album as lyrics</string>
+		<key>name</key>
+		<string>albumAsLyrics</string>
+		<key>default</key>
+		<false/>
+		<key>type</key>
+		<string>switch</string>
+	</dict>
+</array>
+</plist>

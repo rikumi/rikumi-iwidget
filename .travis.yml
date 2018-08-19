@@ -1,0 +1,19 @@
+dist: trusty
+language: node_js
+install:
+- nvm install 9
+- curl -o- -L https://yarnpkg.com/install.sh | bash
+- source ~/.bashrc
+- yarn
+script:
+- npm run pack
+branches:
+  only:
+  - master
+deploy:
+  provider: releases
+  api_key:
+    secure: ooTVUZ0KWqi2n2dwzRA43RywsG8wDGBNtRLKd8h8C/0KmZXEoJWmvLRSZ8XYsmrJcEQHiOpr/gmPUY9wIYYFxtdYyZZAIrbWzn9LXrxxNvc72kIechX0H330GtE2kFWnbWa1nK2VNEYEvzsuuZodQQT+10oYy+7/69ZLIBszE+3ppv/FliHQkU5tN813zSUxi/1cdXsofKsVaf0/G9YVnd14lVmUA7/VU76QB4ke8I1LbGV/8Zud/xC1AsyGQZjLwuxc1nM4Nq6zR64Pn62MUueavhSNma4AAawWlCf7R4CSPoj840gVDUdx+MW0XE+7stdFNhu3u/CR1LDB91bMRsOW+LjCZOihe6ufNufVvNFxnoEbfBMlO7ZJQGB1Fyqdkf+RliuSxL3UUG4B3k5zrycLf8md+9mumev5w1D49hnus3GAQLrJgcCxJ7M+P3OO+Vnj9JrziU7idTK1JIIYCDjE1kByQMxCGr4VDn+Xd9LbbfgfY2Mc6mPl4NgWGObHDQ1T7JCrBGZooia+rnEcsbY8UKgnsVvLZslOi0mlFvzvqM2FEK+CywrhRNl/ouhj4P80Ri1DPShV2N68uQSjUeWYq8sjN+bNtybp+ltNj20Eg8ukwQCp3fjOVInlYqvREjmXHQzXWIVrPMDZFsa6pfPXd8r+Jkx0D3xgrT28cRg=
+  file: dist/rikumi/rikumi-iwidget.zip
+  on:
+    repo: rikumi/rikumi-iwidget

@@ -1,8 +1,10 @@
 {
   "name": "rikumi-iwidget",
   "scripts": {
-    "dev": "parcel Widget.html --port 8080 --no-source-maps --public-url .",
-    "build": "rm -rf dist; parcel build Widget.html --no-source-maps --public-url .; scp dist/* ios:/User/Library/iWidgets/rikumi-iwidget/; ssh ios 'killall SpringBoard'"
+    "make-template": "rm -rf dist; mkdir dist; cp template/* dist/;",
+    "build": "npm run make-template; parcel build Widget.html --no-source-maps --public-url .",
+    "ios": "npm run build; ssh ios 'rm -f /User/Library/iWidgets/rikumi-iwidget/*'; scp dist/* ios:/User/Library/iWidgets/rikumi-iwidget/; ssh ios 'killall SpringBoard'",
+    "pack": "npm run build; cd dist; mkdir rikumi-iwidget; cp *.* rikumi-iwidget/; zip rikumi-iwidget.zip rikumi-iwidget/*"
   },
   "dependencies": {
     "axios": "^0.16.2",

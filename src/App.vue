@@ -1,13 +1,19 @@
 <template lang='pug'>
   #app
+    #log
     transition-group(name='fade')
-      img.cover(:src='cover' :key='cover' :class='{ hidden: !music.isplaying }')
+      .cover-wrapper(:key='music.cover' :class='{ hidden: !music.isplaying }')
+        img.cover(:src='music.cover')
     .container
       .date-time
-        .time
-          span.hour {{ hour }}
-          span.min :{{ min }}
-        .date {{ date }}  {{ weekday }}
+        .time {{ time }}
+        .date {{ date }}
+        .spacing
+        a(href='xeninfo:playpause' v-if='music.title != null')
+          img.play-pause(v-if='music.isplaying' src='./pause.svg' @click='music.isplaying = false')
+          img.play-pause(v-else src='./play.svg' @click='music.isplaying = true')
+        a(href='xeninfo:nexttrack' v-if='music.title != null')
+          img.next(src='./next.svg')
       transition-group(name='slide')
         .lyric(v-if='lyricLine' :key='lyricLine') {{ lyricLine }}
 </template>
@@ -17,48 +23,36 @@
   import date from './date-event'
   import moment from 'moment'
 
+  moment.locale(window.locale)
+
   export default {
     name: 'app',
     data() {
       return {
         music: {},
         date: '',
-        hour: '',
-        min: '',
-        weekday: '',
-        cover: '',
-        lastMusic: {}
+        time: ''
       }
     },
     created() {
       xen.on('music', (music) => {
         this.music = music
-        if (music.artist != null
-          && (music.title !== this.lastMusic.title || music.artist !== this.lastMusic.artist)) {
-          setTimeout(() => {
-            this.cover = 'file:///User/Documents/Artwork.jpg?t=' + Date.now()
-          }, 500)
-        }
-        this.lastMusic = music
       })
       date.on('*:*', () => this.updateTime())
       this.updateTime()
     },
     methods: {
       updateTime() {
-        this.hour = moment().format('H')
-        this.min = moment().format('mm')
-        this.date = moment().format('YYYY/M/D')
-        this.weekday = moment().format('ddd')
+        this.time = moment().format(window.timeFormat)
+        this.date = moment().format(window.dateFormat)
       }
     },
     computed: {
       lyricLine() {
         return (
           this.music.isplaying && (
-            this.music.artist ?
-            [this.music.artist, this.music.title].filter(k => k).join(' - ') :
-            this.music.album
+            window.albumAsLyrics && !this.music.artist ? this.music.album :
+            [this.music.artist, this.music.title].filter(k => k).join(' - ')
           ) || ''
         ).replace(/\(.*?\)|（.*?）|【.*?】/g, '')
       }
@@ -69,10 +63,6 @@
   @font-face
     font-family DosisLight
     src url('./Dosis-ExtraLight.ttf')
-
-  @font-face
-    font-family DosisBold
-    src url('./Dosis-ExtraBold.ttf')
 
   .slide-enter-active, .slide-leave-active
     transition .5s
@@ -114,7 +104,17 @@
     display flex
     flex-direction column
     justify-content flex-end
-    background rgba(0, 0, 0, .5)
+
+  #log
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    color #fff
+    overflow hidden
+    word-wrap break-word
+    word-break break-all
 
   @keyframes rotate
     0%
@@ -122,7 +122,7 @@
     100%
       transform rotate(360deg)
 
-  .cover
+  .cover-wrapper
     position absolute
     left 50%
     top 45px
@@ -130,13 +130,20 @@
     height 320px
     margin-left -160px
     border-radius 50%
+    overflow hidden
     z-index -1
-    opacity 1
+    box-shadow 0 0 20px rgba(0, 0, 0, .3)
     transition .5s
-    animation-name rotate
-    animation-duration 30s
-    animation-timing-function linear
-    animation-iteration-count infinite
+
+    .cover
+      width 322px
+      height 322px
+      margin -1px
+      opacity 1
+      animation-name rotate
+      animation-duration 30s
+      animation-timing-function linear
+      animation-iteration-count infinite
 
     &.hidden
       opacity 0
@@ -149,36 +156,47 @@
     background rgba(0, 0, 0, .5)
     -webkit-backdrop-filter blur(20px)
     padding 0 30px 290px
+    box-shadow 0 0 20px rgba(0, 0, 0, .3)
 
     .date-time
       display flex
       flex-direction row
+      width 100%
       align-items baseline
 
       .time
         font-size 48px
         text-shadow 0 0 10px rgba(0, 0, 0, .4)
-
-        .hour
-          font-family DosisLight
-        
-        .min
-          font-family DosisLight
+        font-family DosisLight
 
       .date
         display flex
         flex-direction column
         font-family DosisLight
         margin-left 10px
-        opacity .5
+        opacity .7
         font-size 16px
+
+      .spacing
+        flex-grow 1
+
+      .play-pause
+        width 22px
+        height 22px
+        object-fit contain
+        margin-left 15px
+        margin-bottom -3px
+
+      .next
+        width 20px
+        height 20px
+        object-fit contain
+        margin-left 15px
+        margin-bottom -2px
 
     .lyric
       margin-top 10px
       padding-top 10px
       border-top 1px solid #fff
       transition .5s
-
-      &.slide-enter-active, &.slide-leave-active
-        border-top-color transparent
 </style>
