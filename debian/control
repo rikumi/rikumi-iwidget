@@ -1,0 +1,9 @@
+Package: io.github.rikumi.rikumi-iwidget
+Name: Rikumi iWidget
+Depends: io.github.rikumi.xeninfo | com.junesiphone.xeninfo
+Version: 1.1.0
+Architecture: iphoneos-arm
+Description: 桌面时间+网易云歌词+旋转封面
+Maintainer: Rikumi
+Author: Rikumi
+Section: Widgets

@@ -1,10 +1,10 @@
 <template lang='pug'>
   #app
     #log
-    transition-group(name='fade')
+    transition-group(name='fade' v-if='!noCover')
       .cover-wrapper(:key='music.cover' :class='{ hidden: !music.isplaying }')
         img.cover(:src='music.cover')
-    .container
+    .container(:class='{ "no-background": noBackground }')
       transition-group.date-time(name='slide')
         .time(:key='time' ref='time') {{ time }}
         .date(:key='date') {{ date }}
@@ -34,7 +34,9 @@
         time: '',
         lyricHeight: 0,
         timeWidth: 0,
-        hasPendingPauseRequest: false
+        hasPendingPauseRequest: false,
+        noBackground: window.noBackground || false,
+        noCover: window.noCover || false,
       }
     },
     created() {
@@ -182,6 +184,11 @@
     -webkit-backdrop-filter blur(20px)
     padding 0 30px 290px
     box-shadow 0 0 20px rgba(0, 0, 0, .3)
+
+    &.no-background
+      background none
+      -webkit-backdrop-filter none
+      box-shadow 0 0 0 transparent
 
     .date-time
       display flex

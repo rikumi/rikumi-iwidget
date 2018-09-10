@@ -4,7 +4,7 @@
     "make-template": "rm -rf dist; mkdir dist; cp template/* dist/;",
     "build": "npm run make-template; parcel build Widget.html --no-source-maps --public-url .",
     "ios": "npm run build; ssh ios 'rm -f /User/Library/iWidgets/rikumi-iwidget/*'; scp dist/* ios:/User/Library/iWidgets/rikumi-iwidget/; ssh ios 'killall SpringBoard'",
-    "pack": "npm run build; cd dist; mkdir rikumi-iwidget; cp *.* rikumi-iwidget/; zip rikumi-iwidget.zip rikumi-iwidget/*"
+    "pack": "npm run build; mkdir -p dist/var/mobile/Library/iWidgets/rikumi-iwidget; mv dist/*.* dist/var/mobile/Library/iWidgets/rikumi-iwidget/; debify dist debian"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -20,6 +20,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
+    "debify": "^1.1.0",
     "normalize.css": "^7.0.0",
     "parcel": "^1.9.7",
     "pug": "^2.0.3",

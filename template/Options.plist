@@ -62,5 +62,25 @@
 		<key>type</key>
 		<string>switch</string>
 	</dict>
+	<dict>
+		<key>label</key>
+		<string>Hide background blur</string>
+		<key>name</key>
+		<string>noBackground</string>
+		<key>default</key>
+		<false/>
+		<key>type</key>
+		<string>switch</string>
+	</dict>
+	<dict>
+		<key>label</key>
+		<string>Hide album cover</string>
+		<key>name</key>
+		<string>noCover</string>
+		<key>default</key>
+		<false/>
+		<key>type</key>
+		<string>switch</string>
+	</dict>
 </array>
 </plist>
